@@ -21,9 +21,14 @@ void sendInt32(int value)
   sendInt16(value >> 16);
 }
 
-void sendFloat(float value)
+void sendFloat(float fvalue)
 {
-  sendInt32(*(int*)(&value));
+  char* p;
+  p = (char*)&fvalue;
+  for (int i = 0; i < 4; i++)
+  {
+    sendByte(p[i]);
+  }
 }
 
 int counter = 0;
