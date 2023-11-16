@@ -39,16 +39,25 @@ void loop()
   if (Serial.available() > 0)
   {
     int inByte = Serial.read();
-    if (inByte == 9)
+    if (inByte == 8)
     {
-      for (int i = 0; i < 1900; i++)
+      for (int i = 0; i < 128; i++) // 768 bytes
       {
         int m = millis();
         sendInt32(m);
         sendInt16(i);
       }
     }
-    if (inByte == 10)
+    if (inByte == 9)
+    {
+      for (int i = 0; i < 1900; i++) // 11400 bytes
+      {
+        int m = millis();
+        sendInt32(m);
+        sendInt16(i);
+      }
+    }
+    if (inByte == 10) // 13 bytes
     {
       int m = millis();
       sendInt32(m);
@@ -56,6 +65,10 @@ void loop()
       sendInt32(counter++);
       sendFloat(fcounter);
       fcounter += 0.1;
+    }
+    if (inByte == 11) // 1 byte
+    {
+      sendByte(counter++);
     }
   }
 }
