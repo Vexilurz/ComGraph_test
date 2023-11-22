@@ -66,7 +66,19 @@ void loop()
       sendFloat(fcounter);
       fcounter += 0.1;
     }
-    if (inByte == 11) // 1 byte
+    if (inByte == 11) // 26 bytes
+    {      
+      for (int i = 0; i < 2; i++)
+      {
+        int m = millis();
+        sendInt32(m);
+        sendByte(counter);
+        sendInt32(counter++);
+        sendFloat(fcounter);
+        fcounter += 0.1;
+      }
+    }
+    if (inByte == 12) // 1 byte
     {
       sendByte(counter++);
     }
